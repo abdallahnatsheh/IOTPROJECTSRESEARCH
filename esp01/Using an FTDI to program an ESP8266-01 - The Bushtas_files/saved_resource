@@ -1,0 +1,34 @@
+/* Enter Your Custom CSS Here */
+.site-navigation a {
+	text-transform: none;
+}
+
+.site {
+  background-color: #f3ffff !important;
+}
+
+.site-content {
+  background-color: #f3ffff !important;
+}
+
+.entry-header {
+  background-color: #f3ffff !important;
+}
+
+.entry-content {
+  background-color: #f3ffff !important;
+}
+
+.entry-meta {
+  background-color: #f3ffff !important;
+}
+
+.snippet {
+  margin-left: 10px;
+  padding-left: 5px;
+  background-color: #cccccc;
+  width: 400px;
+  max-height: 300px;
+  overflow: auto;
+  white-space: nowrap !important;
+}

@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="en-US"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<meta name="viewport" content="width=device-width">
+	<title>Using an FTDI to program an ESP8266-01 - The Bushtas</title>
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<link rel="pingback" href="https://bushta.net/xmlrpc.php">
+	<!--[if lt IE 9]>
+	<script src="https://bushta.net/wp-content/themes/twentyfourteen/js/html5.js"></script>
+	<![endif]-->
+	
+	<!-- This site is optimized with the Yoast SEO plugin v14.2 - https://yoast.com/wordpress/plugins/seo/ -->
+	<meta name="robots" content="index, follow">
+	<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+	<meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+	<link rel="canonical" href="https://bushta.net/using-an-ftdi-to-program-an-esp8266-01/">
+	<meta property="og:locale" content="en_US">
+	<meta property="og:type" content="article">
+	<meta property="og:title" content="Using an FTDI to program an ESP8266-01 - The Bushtas">
+	<meta property="og:description" content="It took me days to figure out how to program an ESP8266 with an FTDI connector. I finally got it figured out last night. I remember using an Arduino Uno to program them a little over a year ago. I’ll have to try that again sometime soon. The two FTDI boards(? cards? devices?) that I … Continue reading Using an FTDI to program an ESP8266-01 →">
+	<meta property="og:url" content="https://bushta.net/using-an-ftdi-to-program-an-esp8266-01/">
+	<meta property="og:site_name" content="The Bushtas">
+	<meta property="article:published_time" content="2017-01-30T05:45:33+00:00">
+	<meta property="og:image" content="https://bushta.net/wp-content/uploads/2017/01/ESP8266-01_Pins-300x144.jpg">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:creator" content="@gbushta">
+	<meta name="twitter:site" content="@gbushta">
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://bushta.net/#website","url":"https://bushta.net/","name":"The Bushtas","description":"Up in the Hinterlands","potentialAction":[{"@type":"SearchAction","target":"https://bushta.net/?s={search_term_string}","query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"ImageObject","@id":"https://bushta.net/using-an-ftdi-to-program-an-esp8266-01/#primaryimage","inLanguage":"en-US","url":"https://bushta.net/wp-content/uploads/2017/01/ESP8266-01_Pins.jpg","width":500,"height":240,"caption":"ESP8266-01 Pin Labels"},{"@type":"WebPage","@id":"https://bushta.net/using-an-ftdi-to-program-an-esp8266-01/#webpage","url":"https://bushta.net/using-an-ftdi-to-program-an-esp8266-01/","name":"Using an FTDI to program an ESP8266-01 - The Bushtas","isPartOf":{"@id":"https://bushta.net/#website"},"primaryImageOfPage":{"@id":"https://bushta.net/using-an-ftdi-to-program-an-esp8266-01/#primaryimage"},"datePublished":"2017-01-30T05:45:33+00:00","dateModified":"2017-01-30T05:45:33+00:00","author":{"@id":"https://bushta.net/#/schema/person/ed5988f70db0963f52d210e6ad624b45"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://bushta.net/using-an-ftdi-to-program-an-esp8266-01/"]}]},{"@type":["Person"],"@id":"https://bushta.net/#/schema/person/ed5988f70db0963f52d210e6ad624b45","name":"gbushta","image":{"@type":"ImageObject","@id":"https://bushta.net/#personlogo","inLanguage":"en-US","url":"https://secure.gravatar.com/avatar/b6745e2d1b31d4eaeb36e8914171218e?s=96&d=monsterid&r=g","caption":"gbushta"},"sameAs":["https://twitter.com/gbushta"]}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel="dns-prefetch" href="https://fonts.googleapis.com/">
+<link rel="dns-prefetch" href="https://s.w.org/">
+<link href="https://fonts.gstatic.com/" crossorigin="" rel="preconnect">
+<link rel="alternate" type="application/rss+xml" title="The Bushtas » Feed" href="https://bushta.net/feed/">
+<link rel="alternate" type="application/rss+xml" title="The Bushtas » Comments Feed" href="https://bushta.net/comments/feed/">
+<link rel="alternate" type="application/rss+xml" title="The Bushtas » Using an FTDI to program an ESP8266-01 Comments Feed" href="https://bushta.net/using-an-ftdi-to-program-an-esp8266-01/feed/">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.0\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/13.0.0\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/bushta.net\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.5.1"}};
+			!function(e,a,t){var r,n,o,i,p=a.createElement("canvas"),s=p.getContext&&p.getContext("2d");function c(e,t){var a=String.fromCharCode;s.clearRect(0,0,p.width,p.height),s.fillText(a.apply(this,e),0,0);var r=p.toDataURL();return s.clearRect(0,0,p.width,p.height),s.fillText(a.apply(this,t),0,0),r===p.toDataURL()}function l(e){if(!s||!s.fillText)return!1;switch(s.textBaseline="top",s.font="600 32px Arial",e){case"flag":return!c([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])&&(!c([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!c([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]));case"emoji":return!c([55357,56424,8205,55356,57212],[55357,56424,8203,55356,57212])}return!1}function d(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(i=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},o=0;o<i.length;o++)t.supports[i[o]]=l(i[o]),t.supports.everything=t.supports.everything&&t.supports[i[o]],"flag"!==i[o]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[i[o]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(r=t.source||{}).concatemoji?d(r.concatemoji):r.wpemoji&&r.twemoji&&(d(r.twemoji),d(r.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/wp-emoji-release.min.js.download" type="text/javascript" defer=""></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel="stylesheet" id="wp-block-library-css" href="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/style.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="wp-block-library-theme-css" href="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/theme.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="contact-form-7-css" href="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/styles.css" type="text/css" media="all">
+<link rel="stylesheet" id="wp-syntax-css-css" href="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/wp-syntax.css" type="text/css" media="all">
+<link rel="stylesheet" id="parent-style-css" href="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="child-style-css" href="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/style(1).css" type="text/css" media="all">
+<link rel="stylesheet" id="twentyfourteen-lato-css" href="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="genericons-css" href="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/genericons.css" type="text/css" media="all">
+<link rel="stylesheet" id="twentyfourteen-style-css" href="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/style(1).css" type="text/css" media="all">
+<link rel="stylesheet" id="twentyfourteen-block-style-css" href="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/blocks.css" type="text/css" media="all">
+<!--[if lt IE 9]>
+<link rel='stylesheet' id='twentyfourteen-ie-css'  href='https://bushta.net/wp-content/themes/twentyfourteen/css/ie.css?ver=20131205' type='text/css' media='all' />
+<![endif]-->
+<link rel="stylesheet" id="sccss_style-css" href="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/saved_resource" type="text/css" media="all">
+<script type="text/javascript" src="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/jquery.js.download" id="jquery-core-js"></script>
+<link rel="https://api.w.org/" href="https://bushta.net/wp-json/"><link rel="alternate" type="application/json" href="https://bushta.net/wp-json/wp/v2/posts/176"><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://bushta.net/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://bushta.net/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 5.5.1">
+<link rel="shortlink" href="https://bushta.net/?p=176">
+<link rel="alternate" type="application/json+oembed" href="https://bushta.net/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fbushta.net%2Fusing-an-ftdi-to-program-an-esp8266-01%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://bushta.net/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fbushta.net%2Fusing-an-ftdi-to-program-an-esp8266-01%2F&amp;format=xml">
+<style id="fourteen-colors" type="text/css">
+		/* Custom accent color. */
+		button,
+		.button,
+		.contributor-posts-link,
+		input[type="button"],
+		input[type="reset"],
+		input[type="submit"],
+		.search-toggle,
+		.hentry .mejs-controls .mejs-time-rail .mejs-time-current,
+		.widget .mejs-controls .mejs-time-rail .mejs-time-current,
+		.hentry .mejs-overlay:hover .mejs-overlay-button,
+		.widget .mejs-overlay:hover .mejs-overlay-button,
+		.widget button,
+		.widget .button,
+		.widget input[type="button"],
+		.widget input[type="reset"],
+		.widget input[type="submit"],
+		.widget_calendar tbody a,
+		.content-sidebar .widget input[type="button"],
+		.content-sidebar .widget input[type="reset"],
+		.content-sidebar .widget input[type="submit"],
+		.slider-control-paging .slider-active:before,
+		.slider-control-paging .slider-active:hover:before,
+		.slider-direction-nav a:hover,
+		.ie8 .primary-navigation ul ul,
+		.ie8 .secondary-navigation ul ul,
+		.ie8 .primary-navigation li:hover > a,
+		.ie8 .primary-navigation li.focus > a,
+		.ie8 .secondary-navigation li:hover > a,
+		.ie8 .secondary-navigation li.focus > a {
+			background-color: #1e73be;
+		}
+
+		.site-navigation a:hover {
+			color: #1e73be;
+		}
+
+		::-moz-selection {
+			background: #1e73be;
+		}
+
+		::selection {
+			background: #1e73be;
+		}
+
+		.paging-navigation .page-numbers.current {
+			border-color: #1e73be;
+		}
+
+		@media screen and (min-width: 782px) {
+			.primary-navigation li:hover > a,
+			.primary-navigation li.focus > a,
+			.primary-navigation ul ul {
+				background-color: #1e73be;
+			}
+		}
+
+		@media screen and (min-width: 1008px) {
+			.secondary-navigation li:hover > a,
+			.secondary-navigation li.focus > a,
+			.secondary-navigation ul ul {
+				background-color: #1e73be;
+			}
+		}
+	
+			.contributor-posts-link,
+			button,
+			.button,
+			input[type="button"],
+			input[type="reset"],
+			input[type="submit"],
+			.search-toggle:before,
+			.hentry .mejs-overlay:hover .mejs-overlay-button,
+			.widget .mejs-overlay:hover .mejs-overlay-button,
+			.widget button,
+			.widget .button,
+			.widget input[type="button"],
+			.widget input[type="reset"],
+			.widget input[type="submit"],
+			.widget_calendar tbody a,
+			.widget_calendar tbody a:hover,
+			.site-footer .widget_calendar tbody a,
+			.content-sidebar .widget input[type="button"],
+			.content-sidebar .widget input[type="reset"],
+			.content-sidebar .widget input[type="submit"],
+			button:hover,
+			button:focus,
+			.button:hover,
+			.button:focus,
+			.widget a.button:hover,
+			.widget a.button:focus,
+			.widget a.button:active,
+			.content-sidebar .widget a.button,
+			.content-sidebar .widget a.button:hover,
+			.content-sidebar .widget a.button:focus,
+			.content-sidebar .widget a.button:active,
+			.contributor-posts-link:hover,
+			.contributor-posts-link:active,
+			input[type="button"]:hover,
+			input[type="button"]:focus,
+			input[type="reset"]:hover,
+			input[type="reset"]:focus,
+			input[type="submit"]:hover,
+			input[type="submit"]:focus,
+			.slider-direction-nav a:hover:before {
+				color: #fff;
+			}
+
+			@media screen and (min-width: 782px) {
+				.primary-navigation ul ul a,
+				.primary-navigation li:hover > a,
+				.primary-navigation li.focus > a,
+				.primary-navigation ul ul {
+					color: #fff;
+				}
+			}
+
+			@media screen and (min-width: 1008px) {
+				.secondary-navigation ul ul a,
+				.secondary-navigation li:hover > a,
+				.secondary-navigation li.focus > a,
+				.secondary-navigation ul ul {
+					color: #fff;
+				}
+			}
+		
+		/* Generated variants of custom accent color. */
+		a,
+		.content-sidebar .widget a {
+			color: #1e73be;
+		}
+
+		.contributor-posts-link:hover,
+		.button:hover,
+		.button:focus,
+		.slider-control-paging a:hover:before,
+		.search-toggle:hover,
+		.search-toggle.active,
+		.search-box,
+		.widget_calendar tbody a:hover,
+		button:hover,
+		button:focus,
+		input[type="button"]:hover,
+		input[type="button"]:focus,
+		input[type="reset"]:hover,
+		input[type="reset"]:focus,
+		input[type="submit"]:hover,
+		input[type="submit"]:focus,
+		.widget button:hover,
+		.widget .button:hover,
+		.widget button:focus,
+		.widget .button:focus,
+		.widget input[type="button"]:hover,
+		.widget input[type="button"]:focus,
+		.widget input[type="reset"]:hover,
+		.widget input[type="reset"]:focus,
+		.widget input[type="submit"]:hover,
+		.widget input[type="submit"]:focus,
+		.content-sidebar .widget input[type="button"]:hover,
+		.content-sidebar .widget input[type="button"]:focus,
+		.content-sidebar .widget input[type="reset"]:hover,
+		.content-sidebar .widget input[type="reset"]:focus,
+		.content-sidebar .widget input[type="submit"]:hover,
+		.content-sidebar .widget input[type="submit"]:focus,
+		.ie8 .primary-navigation ul ul a:hover,
+		.ie8 .primary-navigation ul ul li.focus > a,
+		.ie8 .secondary-navigation ul ul a:hover,
+		.ie8 .secondary-navigation ul ul li.focus > a {
+			background-color: #3b90db;
+		}
+
+		.featured-content a:hover,
+		.featured-content .entry-title a:hover,
+		.widget a:hover,
+		.widget-title a:hover,
+		.widget_twentyfourteen_ephemera .entry-meta a:hover,
+		.hentry .mejs-controls .mejs-button button:hover,
+		.widget .mejs-controls .mejs-button button:hover,
+		.site-info a:hover,
+		.featured-content a:hover {
+			color: #3b90db;
+		}
+
+		a:active,
+		a:hover,
+		.entry-title a:hover,
+		.entry-meta a:hover,
+		.cat-links a:hover,
+		.entry-content .edit-link a:hover,
+		.post-navigation a:hover,
+		.image-navigation a:hover,
+		.comment-author a:hover,
+		.comment-list .pingback a:hover,
+		.comment-list .trackback a:hover,
+		.comment-metadata a:hover,
+		.comment-reply-title small a:hover,
+		.content-sidebar .widget a:hover,
+		.content-sidebar .widget .widget-title a:hover,
+		.content-sidebar .widget_twentyfourteen_ephemera .entry-meta a:hover {
+			color: #3b90db;
+		}
+
+		.page-links a:hover,
+		.paging-navigation a:hover {
+			border-color: #3b90db;
+		}
+
+		.entry-meta .tag-links a:hover:before {
+			border-right-color: #3b90db;
+		}
+
+		.page-links a:hover,
+		.entry-meta .tag-links a:hover {
+			background-color: #3b90db;
+		}
+
+		@media screen and (min-width: 782px) {
+			.primary-navigation ul ul a:hover,
+			.primary-navigation ul ul li.focus > a {
+				background-color: #3b90db;
+			}
+		}
+
+		@media screen and (min-width: 1008px) {
+			.secondary-navigation ul ul a:hover,
+			.secondary-navigation ul ul li.focus > a {
+				background-color: #3b90db;
+			}
+		}
+
+		button:active,
+		.button:active,
+		.contributor-posts-link:active,
+		input[type="button"]:active,
+		input[type="reset"]:active,
+		input[type="submit"]:active,
+		.widget input[type="button"]:active,
+		.widget input[type="reset"]:active,
+		.widget input[type="submit"]:active,
+		.content-sidebar .widget input[type="button"]:active,
+		.content-sidebar .widget input[type="reset"]:active,
+		.content-sidebar .widget input[type="submit"]:active {
+			background-color: #4fa4ef;
+		}
+
+		.site-navigation .current_page_item > a,
+		.site-navigation .current_page_ancestor > a,
+		.site-navigation .current-menu-item > a,
+		.site-navigation .current-menu-ancestor > a {
+			color: #4fa4ef;
+		}
+	</style><link rel="shortcut icon" type="image/x-icon" href="http://bushta.net/wp-content/themes/twentyfourteen-child/favicon.ico">
+<style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style><style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #b5b5b5; }
+</style>
+	</head>
+
+<body class="post-template-default single single-post postid-176 single-format-standard custom-background wp-embed-responsive header-image full-width singular masthead-fixed">
+<div id="page" class="hfeed site">
+		<div id="site-header">
+		<a href="https://bushta.net/" rel="home">
+			<img src="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/skyline.png" width="1260" height="240" alt="The Bushtas">
+		</a>
+	</div>
+	
+	<header id="masthead" class="site-header" role="banner">
+		<div class="header-main">
+			<h1 class="site-title"><a href="https://bushta.net/" rel="home">The Bushtas</a></h1>
+
+			<div class="search-toggle">
+				<a href="https://bushta.net/using-an-ftdi-to-program-an-esp8266-01/#search-container" class="screen-reader-text" aria-expanded="false" aria-controls="search-container">Search</a>
+			</div>
+
+			<nav id="primary-navigation" class="site-navigation primary-navigation" role="navigation">
+				<button class="menu-toggle">Primary Menu</button>
+				<a class="screen-reader-text skip-link" href="https://bushta.net/using-an-ftdi-to-program-an-esp8266-01/#content">Skip to content</a>
+				<div class="menu-menu-container"><ul id="primary-menu" class="nav-menu"><li id="menu-item-36" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-post-parent menu-item-has-children menu-item-36"><a href="https://bushta.net/">Making Things, Making Music, and Programming</a>
+<ul class="sub-menu">
+	<li id="menu-item-47" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-47"><a href="https://bushta.net/category/uncategorized/">What We’re Up To</a></li>
+</ul>
+</li>
+<li id="menu-item-35" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-35"><a href="https://bushta.net/about-us/">About Us</a></li>
+<li id="menu-item-48" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-48"><a href="https://bushta.net/blog/">Blog</a>
+<ul class="sub-menu">
+	<li id="menu-item-37" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-37"><a href="https://bushta.net/category/ios-blog/">iOS Blog</a></li>
+	<li id="menu-item-38" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-38"><a href="https://bushta.net/category/raspberry-pi/">Raspberry Pi</a></li>
+	<li id="menu-item-49" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-49"><a href="https://bushta.net/category/arduino/">Arduino</a></li>
+	<li id="menu-item-197" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-197"><a href="https://bushta.net/category/make/">Make</a></li>
+	<li id="menu-item-196" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-196"><a href="https://bushta.net/category/uncategorized/">Uncategorized</a></li>
+</ul>
+</li>
+</ul></div>			</nav>
+		</div>
+
+		<div id="search-container" class="search-box-wrapper hide">
+			<div class="search-box">
+				<form role="search" method="get" class="search-form" action="https://bushta.net/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search …" value="" name="s">
+				</label>
+				<input type="submit" class="search-submit" value="Search">
+			</form>			</div>
+		</div>
+	</header><!-- #masthead -->
+
+	<div id="main" class="site-main">
+
+	<div id="primary" class="content-area">
+		<div id="content" class="site-content" role="main">
+			
+<article id="post-176" class="post-176 post type-post status-publish format-standard hentry category-make">
+	
+	<header class="entry-header">
+				<div class="entry-meta">
+			<span class="cat-links"><a href="https://bushta.net/category/make/" rel="category tag">Make</a></span>
+		</div>
+			<h1 class="entry-title">Using an FTDI to program an ESP8266-01</h1>
+		<div class="entry-meta">
+			<span class="entry-date"><a href="https://bushta.net/using-an-ftdi-to-program-an-esp8266-01/" rel="bookmark"><time class="entry-date" datetime="2017-01-29T21:45:33-08:00">January 29, 2017</time></a></span> <span class="byline"><span class="author vcard"><a class="url fn n" href="https://bushta.net/author/gbushta/" rel="author">gbushta</a></span></span>			<span class="comments-link"><a href="https://bushta.net/using-an-ftdi-to-program-an-esp8266-01/#respond">Leave a comment</a></span>
+						</div><!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+		<div class="entry-content">
+		<p><a href="https://bushta.net/wp-content/uploads/2017/01/ESP8266-01_Pins.jpg"><img loading="lazy" src="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/ESP8266-01_Pins-300x144.jpg" alt="ESP8266-01 Pin Labels" width="300" height="144" class="aligncenter size-medium wp-image-182" srcset="https://bushta.net/wp-content/uploads/2017/01/ESP8266-01_Pins-300x144.jpg 300w, https://bushta.net/wp-content/uploads/2017/01/ESP8266-01_Pins.jpg 500w" sizes="(max-width: 300px) 100vw, 300px"></a><br>
+It took me days to figure out how to program an ESP8266 with an FTDI connector.  I finally got it figured out last night.  I remember using an Arduino Uno to program them a little over a year ago.  I’ll have to try that again sometime soon.<br>
+The two FTDI boards(? cards? devices?) that I have look different but, essentially, are the same.  I have one 3.3v from Sparkfun.<br>
+<a href="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/ftdiSpF.jpg"><img loading="lazy" src="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/ftdiSpF.jpg" alt="Sparkfun FTDI Front" width="216" height="240" class="alignnone size-full wp-image-178"></a><a href="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/ftdiSpB.jpg"><img loading="lazy" src="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/ftdiSpB.jpg" alt="Sparkfun FTDI Back" width="207" height="240" class="alignnone size-full wp-image-177"></a></p>
+<p>On the back side it looks like you’d be able to solder a jumper wire across the little pads to make it either 3.3v or 5v.  I am not sure and don’t feel like burning it up just to see.</p>
+<p>The second one is from Virtuabotix.  It has a switch on the back side so you can choose either 3.3v or 5v.  There are also two connectors that you can use, four pins or six pins.<br>
+<a href="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/ftdiVbF.jpg"><img loading="lazy" src="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/ftdiVbF.jpg" alt="Virtuabotix FTDI Front" width="244" height="240" class="alignnone size-full wp-image-180"></a><a href="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/ftdiVbB.jpg"><img loading="lazy" src="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/ftdiVbB.jpg" alt="Virtuabotix FTDI Back" width="240" height="240" class="alignnone size-full wp-image-179" srcset="https://bushta.net/wp-content/uploads/2017/01/ftdiVbB.jpg 240w, https://bushta.net/wp-content/uploads/2017/01/ftdiVbB-150x150.jpg 150w" sizes="(max-width: 240px) 100vw, 240px"></a></p>
+<p>You actually only have to use four of the pins on the FTDI to program the ESP8266-01, voltage out (VDD or 3.3v), GND, RX, and TX.</p>
+<p>I found it much easier to use a little homemade breadboard header while programming or just messing around with the ESP8266-01.  The<br>
+ESP8266-01 by itself is not breadboard friendly.  I ended up taking a row of header pins and cut them into 4 pin lengths. I then glued them together to make a 2×4 header row that I could plug the ESP8266-01 into.  I bent the rows of the pins outward, away from the opposite side, and then back vertical so they would fit into a breadboard across that little trough that separates the two sides of the breadboard.  You have to keep messing with the angles of the wires to get the pins into the correct position.  It doesn’t take too awful much time to get it correct.</p>
+<p>There are eight pins on the ESP8266-01.  You only need to hook up six of the pins on the ESP8266-01 to four of the FTDI pins.</p>
+<p>If you look closely you will notice on the Sparkfun FTDI the six pins are labeled GND, CTS, 3v3, TX0, RX1, and DTR.  On the Virtuabotix FTDI the six pins are labeled G, D1, Vdd, Rx, Tx, and Rst.  The second set of four pins on the Virtuabotix are labeled Vdd, Gnd, Rx, and Tx.  We are going to use only four of the pins on the FTDI.  The four pin connection on the Virtuabotix FTDI already has the only ones we need.  The ones on the six pin connectors that we will use are ground (G or GND), voltage (3v3, or Vdd), receive (Rx or RX1) and transmit (Tx or TX0).  You may have a board that has different pin labeling, but they should be the same and in the same order.  That is, if the company followed the same building convention as these two companies.</p>
+<p>Since you will need to use six of the pins on the ESP8266-01 and only four of the FTDI pins it is easier to use a breadboard.  The pin wiring will be:<br>
+<u>FTDI</u> -&gt; <u>ESP8266-01</u><br>
+GND -&gt; GND and GPIO0 (this is ground)<br>
+3v3 -&gt; VCC and CH_PD (this is voltage)<br>
+RX -&gt; RX<br>
+TX -&gt; TX</p>
+<p>Both the ground and voltage pins of the FTDI go to two pins on the ESP8266-01.</p>
+<p>Once you have the two devices hooked together you can plug in the FTDI to your computer and upload a program to the ESP8266-01.</p>
+<p>I used the Arduino IDE to program the ESP8266-01.  I am familiar with the Arduino IDE so I use it.</p>
+<p>Once you have the USB cable hooked up to your computer, in the Arduino IDE select Tools from the top menu.  Select “Generic ESP8266 Module” for the Board.  On version 1.6.5 of the Arduino IDE more options will show up under Tools.  I have them set as the following:<br>
+Flash Mode: “DIO”<br>
+Flash Frequency: “40MHz”<br>
+Upload Using: “Serial”<br>
+CPU Frequency: “80MHz”<br>
+Flash Size: “512K (64K SPIFFS)”<br>
+Upload Speed; “115200”</p>
+<p>For the Port you will need to select the port that your FTDI is using.</p>
+<p>I modified the basic BLINK sketch to blink an LED for 1/10 of a second twice and half a second repeatedly.  After you have the ESP8266-01 programmed you will need to disconnect the wiring for the FTDI.  Then you will need to wire up the ESP8266-01 with battery + to VCC, and battery – to ground.  I used two AA batteries for power.  Also put a resistor from GPIO2 to an LED and the other leg of the LED to ground. There should also be a jumper between CH_PD and VCC so they both get power from the battery. </p>
+<p>Here is a copy of the sketch that I modified slightly (you may use it and modify it):<br>
+<code><br>
+/*<br>
+  Blink<br>
+  Turns on an LED on for one tenth of a  second<br>
+  then off for one tenth of a second<br>
+  then on for one tenth of a  second<br>
+  then off for one tenth of a second<br>
+  then on for half a second<br>
+  then off for half of a second<br>
+  repeatedly.</code></p><code>
+<p>  This example code is in the public domain.<br>
+ */</p>
+<p>// Pin 13 has an LED connected on most Arduino boards.<br>
+// Pin 11 has the LED on Teensy 2.0<br>
+// Pin 6  has the LED on Teensy++ 2.0<br>
+// Pin 13 has the LED on Teensy 3.0<br>
+// Pin 2 for the ESP8266-01 and I put the LED on the breadboard<br>
+//   for this device with a resistor to not burn out the LED.<br>
+// give it a name:<br>
+int led = 2;</p>
+<p>// the setup routine runs once when you press reset:<br>
+void setup() {<br>
+  // initialize the digital pin as an output.<br>
+  pinMode(led, OUTPUT);<br>
+}</p>
+</code><p><code>// the loop routine runs over and over again forever:<br>
+void loop() {<br>
+  digitalWrite(led, HIGH);   // turn the LED on (HIGH is the voltage level)<br>
+  delay(100);               // wait for a 1/4 second<br>
+  digitalWrite(led, LOW);    // turn the LED off by making the voltage LOW<br>
+  delay(300);               // wait for a 1/4 second<br>
+  digitalWrite(led, HIGH);<br>
+  delay(100);<br>
+  digitalWrite(led, LOW);<br>
+  delay(300);<br>
+  digitalWrite(led, HIGH);<br>
+  delay(500);<br>
+  digitalWrite(led, LOW);<br>
+  delay(500);<br>
+}<br>
+</code></p>
+<p>That’s about it for using an FTDI to program an ESP8266-01 using the Arduino software.</p>
+	</div><!-- .entry-content -->
+	
+	</article><!-- #post-176 -->
+		<nav class="navigation post-navigation" role="navigation">
+		<h1 class="screen-reader-text">Post navigation</h1>
+		<div class="nav-links">
+			<a href="https://bushta.net/re-learning-since-i-didnt-document/" rel="prev"><span class="meta-nav">Previous Post</span>Re-learning, since I didn’t document.</a><a href="https://bushta.net/rgb-led-strips/" rel="next"><span class="meta-nav">Next Post</span>RGB LED Strips</a>			</div><!-- .nav-links -->
+		</nav><!-- .navigation -->
+		
+<div id="comments" class="comments-area">
+
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://bushta.net/using-an-ftdi-to-program-an-esp8266-01/#respond" style="display:none;">Cancel reply</a></small></h3><form action="https://bushta.net/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate=""><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p><p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" required="required"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" required="required"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200"></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="176" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="906ebd637a"></p><p style="display: none;"></p><input type="hidden" id="ak_js" name="ak_js" value="1600965964394"></form>	</div><!-- #respond -->
+	
+</div><!-- #comments -->
+		</div><!-- #content -->
+	</div><!-- #primary -->
+
+<div id="secondary">
+		<h2 class="site-description">Up in the Hinterlands</h2>
+	
+	
+		<div id="primary-sidebar" class="primary-sidebar widget-area" role="complementary">
+		<aside id="search-2" class="widget widget_search"><form role="search" method="get" class="search-form" action="https://bushta.net/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search …" value="" name="s">
+				</label>
+				<input type="submit" class="search-submit" value="Search">
+			</form></aside>
+		<aside id="recent-posts-2" class="widget widget_recent_entries">
+		<h1 class="widget-title">Recent Posts</h1>
+		<ul>
+											<li>
+					<a href="https://bushta.net/conways-game-of-life/">Conway’s Game Of Life</a>
+									</li>
+											<li>
+					<a href="https://bushta.net/pygamer-hello-my-name-is/">PyGamer – Hello my name is</a>
+									</li>
+											<li>
+					<a href="https://bushta.net/foldable-3d-prints/">Foldable 3D prints</a>
+									</li>
+											<li>
+					<a href="https://bushta.net/neopixel-purse/">NeoPixel Purse</a>
+									</li>
+											<li>
+					<a href="https://bushta.net/esp32-deepsleep/">ESP32 DeepSleep</a>
+									</li>
+					</ul>
+
+		</aside><aside id="recent-comments-2" class="widget widget_recent_comments"><h1 class="widget-title">Recent Comments</h1><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link"><a href="https://bushta.net/" rel="external nofollow ugc" class="url">gbushta</a></span> on <a href="https://bushta.net/neopixel-purse/#comment-657">NeoPixel Purse</a></li><li class="recentcomments"><span class="comment-author-link">HappyNapalm</span> on <a href="https://bushta.net/neopixel-purse/#comment-649">NeoPixel Purse</a></li><li class="recentcomments"><span class="comment-author-link"><a href="https://bushta.net/" rel="external nofollow ugc" class="url">gbushta</a></span> on <a href="https://bushta.net/esp32-deepsleep/#comment-470">ESP32 DeepSleep</a></li><li class="recentcomments"><span class="comment-author-link">SDC</span> on <a href="https://bushta.net/esp32-deepsleep/#comment-468">ESP32 DeepSleep</a></li><li class="recentcomments"><span class="comment-author-link"><a href="https://bushta.net/" rel="external nofollow ugc" class="url">gbushta</a></span> on <a href="https://bushta.net/esp8266-devices-from-adafruit-and-sparkfun/#comment-77">ESP8266 devices from Adafruit and Sparkfun</a></li></ul></aside><aside id="archives-2" class="widget widget_archive"><h1 class="widget-title">Archives</h1>
+			<ul>
+					<li><a href="https://bushta.net/2020/05/">May 2020</a></li>
+	<li><a href="https://bushta.net/2019/12/">December 2019</a></li>
+	<li><a href="https://bushta.net/2019/02/">February 2019</a></li>
+	<li><a href="https://bushta.net/2019/01/">January 2019</a></li>
+	<li><a href="https://bushta.net/2018/04/">April 2018</a></li>
+	<li><a href="https://bushta.net/2017/01/">January 2017</a></li>
+	<li><a href="https://bushta.net/2016/01/">January 2016</a></li>
+	<li><a href="https://bushta.net/2015/12/">December 2015</a></li>
+	<li><a href="https://bushta.net/2015/11/">November 2015</a></li>
+	<li><a href="https://bushta.net/2015/09/">September 2015</a></li>
+	<li><a href="https://bushta.net/2015/03/">March 2015</a></li>
+	<li><a href="https://bushta.net/2015/01/">January 2015</a></li>
+	<li><a href="https://bushta.net/2014/12/">December 2014</a></li>
+			</ul>
+
+			</aside><aside id="categories-2" class="widget widget_categories"><h1 class="widget-title">Categories</h1>
+			<ul>
+					<li class="cat-item cat-item-16"><a href="https://bushta.net/category/3d-printing/">3D Printing</a>
+</li>
+	<li class="cat-item cat-item-6"><a href="https://bushta.net/category/arduino/">Arduino</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="https://bushta.net/category/circuitpython/">CircuitPython</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="https://bushta.net/category/hackaday/">Hackaday</a>
+</li>
+	<li class="cat-item cat-item-2"><a href="https://bushta.net/category/ios-blog/">iOS Blog</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="https://bushta.net/category/make/">Make</a>
+</li>
+	<li class="cat-item cat-item-14"><a href="https://bushta.net/category/micropython/">MicroPython</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="https://bushta.net/category/raspberry-pi/">Raspberry Pi</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="https://bushta.net/category/uncategorized/">Uncategorized</a>
+</li>
+			</ul>
+
+			</aside><aside id="meta-2" class="widget widget_meta"><h1 class="widget-title">Meta</h1>
+		<ul>
+						<li><a rel="nofollow" href="https://bushta.net/wp-login.php">Log in</a></li>
+			<li><a href="https://bushta.net/feed/">Entries feed</a></li>
+			<li><a href="https://bushta.net/comments/feed/">Comments feed</a></li>
+
+			<li><a href="https://wordpress.org/">WordPress.org</a></li>
+		</ul>
+
+		</aside>	</div><!-- #primary-sidebar -->
+	</div><!-- #secondary -->
+
+		</div><!-- #main -->
+
+		<footer id="colophon" class="site-footer" role="contentinfo">
+
+			
+			<div class="site-info">
+								<a href="http://wordpress.org/">Coded by Greg [P{)</a>
+			</div><!-- .site-info -->
+		</footer><!-- #colophon -->
+	</div><!-- #page -->
+
+	<script type="text/javascript" id="contact-form-7-js-extra">
+/* <![CDATA[ */
+var wpcf7 = {"apiSettings":{"root":"https:\/\/bushta.net\/wp-json\/contact-form-7\/v1","namespace":"contact-form-7\/v1"}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/scripts.js.download" id="contact-form-7-js"></script>
+<script type="text/javascript" src="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/wp-syntax.js.download" id="wp-syntax-js-js"></script>
+<script type="text/javascript" src="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/comment-reply.min.js.download" id="comment-reply-js"></script>
+<script type="text/javascript" src="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/functions.js.download" id="twentyfourteen-script-js"></script>
+<script type="text/javascript" src="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/wp-embed.min.js.download" id="wp-embed-js"></script>
+<script async="async" type="text/javascript" src="./Using an FTDI to program an ESP8266-01 - The Bushtas_files/form.js.download" id="akismet-form-js"></script>
+
+</body></html>
